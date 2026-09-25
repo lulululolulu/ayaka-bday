@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>A little birthday magic</title><meta name="description" content="A little birthday surprise, just for you."><meta name="robots" content="noindex,nofollow"><style>html,body{margin:0;min-height:100%;background:#f8eee7}body{display:grid;place-items:center}main{width:100%;max-width:740px}button{cursor:pointer}button:focus-visible{outline:3px solid #285578;outline-offset:5px}</style></head><body><main><div id="birthday-envelope" aria-label="Birthday envelope invitation">
+  <style>
+    #birthday-envelope { --ink:#852e40; --paper:#fffaf0; --pink:#eab5b7; color-scheme:light; background:#f8eee7; color:var(--ink); font:14px/1.5 Georgia,serif; text-align:center; overflow:hidden; border-radius:12px; position:relative; }
+    #birthday-envelope * { box-sizing:border-box; }
+    #birthday-envelope .be-top { padding:30px 20px 0; }
+    #birthday-envelope .be-eyebrow { font:10px/1.5 Arial,sans-serif; letter-spacing:3px; text-transform:uppercase; }
+    #birthday-envelope .be-title { font:italic 34px/1.15 Georgia,serif; margin:12px 0 0; color:var(--ink); }
+    #birthday-envelope .be-stage { position:relative; width:100%; height:566px; perspective:1000px; }
+    #birthday-envelope .be-envelope { position:absolute; width:min(360px,88%); height:222px; top:250px; left:50%; transform:translateX(-50%) rotate(-4deg); transition:transform .8s ease,top .8s ease; }
+    #birthday-envelope .be-back { position:absolute; inset:0; background:#cb8e98; border-radius:5px; box-shadow:0 22px 45px #772e3c22; }
+    #birthday-envelope .be-flap { position:absolute; inset:0; background:#edc0c1; clip-path:polygon(0 0,100% 0,50% 58%); transform-origin:top; z-index:5; transition:transform .65s ease,z-index 0s .3s; backface-visibility:visible; }
+    #birthday-envelope .be-front { position:absolute; inset:0; background:linear-gradient(120deg,#efc3c3,#e6abad); clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%); border-radius:0 0 5px 5px; z-index:3; }
+    #birthday-envelope .be-fold { position:absolute; inset:0; background:#eebabb; clip-path:polygon(0 100%,50% 42%,100% 100%); z-index:3; }
+    #birthday-envelope .be-seal { position:absolute; top:90px; left:calc(50% - 29px); width:58px; height:58px; border:4px double #ac5362; border-radius:50%; background:#943e50; color:#f6d4c6; z-index:6; box-shadow:0 3px 4px #74314333; font:26px Georgia,serif; transition:opacity .2s,transform .4s; }
+    #birthday-envelope .be-address { position:absolute; bottom:26px; left:0; width:100%; z-index:4; font:italic 21px Georgia,serif; transition:opacity .3s; }
+    #birthday-envelope .be-ticket { position:absolute; top:12px; left:7%; width:86%; height:380px; background:var(--paper); border-radius:4px; padding:23px 18px 15px; z-index:2; visibility:hidden; box-shadow:0 12px 28px #60313820; transition:transform 1s cubic-bezier(.22,.7,.24,1) .4s,visibility 0s .4s; }
+    #birthday-envelope .be-ticket::before { content:""; position:absolute; inset:8px; border:1px solid #ad5f6244; pointer-events:none; }
+    #birthday-envelope .be-ticket h2 { font:32px/1.06 Georgia,serif; color:var(--ink); margin:14px 0 10px; }
+    #birthday-envelope .be-ticket p { margin:7px 0; }
+    #birthday-envelope .be-small { font:10px/1.5 Arial,sans-serif; letter-spacing:2px; text-transform:uppercase; }
+    #birthday-envelope .be-pot { width:59px; height:45px; border:2px solid #285578; border-radius:4px 4px 19px 19px; background:repeating-linear-gradient(90deg,#fff9ec 0 9px,#9eb6c3 9px 15px); position:relative; margin:17px auto 13px; }
+    #birthday-envelope .be-pot::after { content:""; position:absolute; right:-17px; top:5px; width:17px; height:24px; border:3px solid #285578; border-left:0; border-radius:0 15px 15px 0; }
+    #birthday-envelope .be-pot::before { content:"♥"; position:absolute; inset:4px 0; color:#a94453; font:25px Georgia,serif; }
+    #birthday-envelope .be-venue { font:19px Georgia,serif; }
+    #birthday-envelope .be-note { font:italic 14px/1.4 Georgia,serif; }
+    #birthday-envelope .be-stub { border-top:1px dashed #b97f7d; margin:17px -18px 0; padding:12px 12px 0; }
+    #birthday-envelope .be-stub p { font:12px/1.4 Arial,sans-serif; }
+    #birthday-envelope .be-stub span { font:10px Arial,sans-serif; color:#806963; }
+    #birthday-envelope .be-hit { position:absolute; inset:0; border:0; padding:0; background:transparent; z-index:7; border-radius:5px; }
+    #birthday-envelope .be-hint { position:absolute; top:492px; width:100%; font:11px Arial,sans-serif; letter-spacing:1px; transition:opacity .3s; }
+    #birthday-envelope .be-bottom { padding:0 20px 24px; font:italic 15px Georgia,serif; }
+    #birthday-envelope .be-replay { background:transparent; color:var(--ink); border:0; border-bottom:1px solid #bf8c8e; padding:10px 4px; font:11px Arial,sans-serif; min-height:44px; }
+    #birthday-envelope .be-bottom p { margin:0 0 9px; }
+    #birthday-envelope.be-open .be-envelope { transform:translateX(-50%) rotate(0deg); top:285px; }
+    #birthday-envelope.be-open .be-flap { transform:rotateX(180deg); z-index:1; }
+    #birthday-envelope.be-open .be-ticket { visibility:visible; transform:translateY(-274px) rotate(-2deg); animation:be-layer 1.5s forwards; }
+    #birthday-envelope.be-open .be-seal { opacity:0; transform:scale(.7); }
+    #birthday-envelope.be-open .be-address { opacity:0; }
+    #birthday-envelope.be-open .be-hit { display:none; }
+    #birthday-envelope.be-open .be-hint { opacity:0; }
+    #birthday-envelope .be-spark { position:absolute; font:24px Georgia,serif; opacity:.45; }
+    #birthday-envelope .be-spark.one { left:13%; top:90px; transform:rotate(10deg); }
+    #birthday-envelope .be-spark.two { right:13%; top:185px; }
+    #birthday-envelope .be-spark.three { right:24%; top:40px; font-size:14px; }
+    @keyframes be-layer { 0%,70% { z-index:2; } 71%,100% { z-index:4; } }
+    @media(max-width:380px) { #birthday-envelope .be-ticket h2 { font-size:29px; } #birthday-envelope .be-ticket { padding-left:12px; padding-right:12px; } #birthday-envelope .be-stub { margin-left:-12px; margin-right:-12px; } }
+    @media(prefers-reduced-motion:reduce) { #birthday-envelope *,#birthday-envelope *::before,#birthday-envelope *::after { transition:none!important; animation-duration:.01ms!important; } }
+  </style>
+  <header class="be-top"><div class="be-eyebrow">Special delivery · just for you</div><h1 class="be-title">A little birthday magic.</h1></header>
+  <div class="be-stage">
+    <span class="be-spark one" aria-hidden="true">✧</span><span class="be-spark two" aria-hidden="true">✧</span><span class="be-spark three" aria-hidden="true">✦</span>
+    <div class="be-envelope">
+      <div class="be-back"></div><div class="be-flap"></div>
+      <article class="be-ticket" aria-hidden="true">
+        <div class="be-small">Your birthday ticket</div>
+        <h2>A little colour.<br>A lot of catching up.</h2>
+        <div class="be-pot" aria-hidden="true"></div>
+        <p class="be-small">Let's paint pottery together</p>
+        <p class="be-venue">Social Pottery</p><p>Kentish Town, London</p>
+        <p class="be-note">You, me & something lovely to make.<br>My treat. Happy birthday! ♡</p>
+        <div class="be-stub"><p>WHEN &nbsp; We'll choose together</p><span>A personal invitation · booking to follow</span></div>
+      </article>
+      <div class="be-front"></div><div class="be-fold"></div><div class="be-seal" aria-hidden="true">♥</div>
+      <div class="be-address">For the birthday girl</div>
+      <button class="be-hit" type="button" aria-label="Open your birthday envelope" aria-expanded="false"></button>
+    </div>
+    <div class="be-hint">Tap the envelope to unwrap your treat</div>
+  </div>
+  <footer class="be-bottom"><p>Good company. Paint-covered hands. A little keepsake.</p><button class="be-replay" type="button" hidden>Seal it with love, again ↺</button></footer>
+  <span class="be-status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"></span>
+  <script>
+    (() => {
+      const root=document.getElementById('birthday-envelope');
+      const hit=root.querySelector('.be-hit'), ticket=root.querySelector('.be-ticket'), replay=root.querySelector('.be-replay');
+      function setOpen(open,save=false) {
+        root.classList.toggle('be-open',open);
+        hit.setAttribute('aria-expanded',String(open));
+        ticket.setAttribute('aria-hidden',String(!open));
+        replay.hidden=!open;
+        root.querySelector('.be-status').textContent=open?'Happy birthday! You are invited to pottery painting at Social Pottery, Kentish Town. Date to choose together.':'';
+      }
+      hit.addEventListener('click',()=>setOpen(true,true));
+      replay.addEventListener('click',()=>{setOpen(false,true);hit.focus();});
+      setOpen(false);
+    })();
+  </script>
+</div></main></body></html>
